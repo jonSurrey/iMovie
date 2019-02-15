@@ -1,2 +1,2 @@
 # iMovie!
-A simple SWIFT app to discover and search any popular movies.
+A simple SWIFT app using the MVC pattern to discover and search any popular movies.
