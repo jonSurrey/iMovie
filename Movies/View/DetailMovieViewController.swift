@@ -10,6 +10,12 @@ import UIKit
 
 protocol DetailMovieViewDelegate:class {
     
+    /// Displays the loading on the view
+    func showLoading()
+    
+    /// Hides the loading on the view
+    func hideLoading()
+    
     /// Sets the poster of the movie
     func updateMoviePoster(_ url:String?)
     
@@ -35,6 +41,7 @@ protocol DetailMovieViewDelegate:class {
 class DetailMovieViewController: UIViewController {
     
     // MARK: - Outlets
+    @IBOutlet weak var loading:UIActivityIndicatorView!
     @IBOutlet weak var movieGenre:UILabel!
     @IBOutlet weak var movieTitle:UILabel!
     @IBOutlet weak var moviePoster:UIImageView!
@@ -63,6 +70,14 @@ class DetailMovieViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = .clear
     }
+    
+    /// Fades animate  a given view 
+    private func fadeAnimateView(_ view:UIView){
+        view.alpha = 0
+        UIView.animate(withDuration: 0.7) {
+            view.alpha = 1
+        }
+    }
 
     /// Action to favorite the movie
     @objc private func favoriteAction(){
@@ -73,6 +88,14 @@ class DetailMovieViewController: UIViewController {
 // MARK: - DetailMovieViewDelegate
 extension DetailMovieViewController:DetailMovieViewDelegate{
     
+    func showLoading() {
+        loading.startAnimating()
+    }
+    
+    func hideLoading() {
+        loading.stopAnimating()
+    }
+    
     func showFeedback(_ message: String) {
         showAlert(title: "Ops!", message: message)
     }
@@ -80,23 +103,28 @@ extension DetailMovieViewController:DetailMovieViewDelegate{
     func updateMoviePoster(_ url: String?) {
         if let url = url{
             moviePoster.load(url)
+            fadeAnimateView(moviePoster)
         }
     }
     
     func updateMovieTitle(_ title: String?) {
         movieTitle.text = title
+        fadeAnimateView(movieTitle)
     }
     
     func updateMovieGenre(_ genres: String?) {
         movieGenre.text = genres
+        fadeAnimateView(movieGenre)
     }
     
     func updateMovieReleaseDate(_ date: String?) {
         movieRelease.text = date
+        fadeAnimateView(movieRelease)
     }
     
     func updateMovieOverview(_ overview: String?) {
         movieOverview.text = overview
+        fadeAnimateView(movieOverview)
     }
     
     func updateIsMovieFavorite(_ isFavorite: Bool) {

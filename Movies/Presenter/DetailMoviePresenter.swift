@@ -58,7 +58,7 @@ class DetailMoviePresenter{
     
     /// Checks if the current movie is already in the favorite list
     private func checkMovieIsFavorite(_ movie:Movie) {
-        let isFavorite = storage.isMovieFavorite(movie)
+        isFavorite = storage.isMovieFavorite(movie)
         view.updateIsMovieFavorite(isFavorite)
     }
 }
@@ -78,6 +78,7 @@ extension DetailMoviePresenter:DetailMoviePresenterDelegate{
     }
     
     func getMovieDetails() {
+        view.showLoading()
         service.detail(of: movie)
     }
     
@@ -93,20 +94,24 @@ extension DetailMoviePresenter:DetailMoviePresenterDelegate{
 extension DetailMoviePresenter:MovieServiceDelegate{
     
     func didReceiveDetailOf(_ movie:Movie){
+        
+        view.hideLoading()
+        checkMovieIsFavorite(movie)
+        
         view.updateMovieTitle (movie.title)
         view.updateMoviePoster(movie.poster)
         view.updateMovieOverview(movie.overview)
         view.updateMovieGenre(formatGenres(of: movie))
         view.updateMovieReleaseDate(formatDate(of:movie))
-        
-        checkMovieIsFavorite(movie)
     }
     
     func onRequestError(_ error: String) {
+        view.hideLoading()
         view.showFeedback(error)
     }
     
     func noInternetConection() {
+        view.hideLoading()
         view.showFeedback("It seems you are not connected to the internet")
     }
 }

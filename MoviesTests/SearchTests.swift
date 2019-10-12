@@ -1,5 +1,5 @@
 //
-//  MovieTests.swift
+//  SearchTests.swift
 //  MoviesTests
 //
 //  Created by Jonathan Martins on 12/10/19.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import Movies
 
-class MovieTests: XCTestCase {
+class SearchTests: XCTestCase {
 
     override func setUp() {
         

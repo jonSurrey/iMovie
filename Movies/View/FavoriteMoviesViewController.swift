@@ -101,7 +101,7 @@ extension FavoriteMoviesViewController:FavoriteMoviesViewDelegate{
     }
     
     func updateFavoriteList() {
-        tableView.reloadData()
+        tableView.reloadDataAnimated()
         tableView.hideEmptyMessage()
     }
 }

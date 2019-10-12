@@ -74,7 +74,7 @@ class PopularMoviesViewController: UIViewController {
     // MARK: - Setup
     /// Sets up the collectionView
     private func setupViews(){
-        self.title = "Popular Movies"
+        self.title = "Discover"
         
         collectionView.delegate   = self
         collectionView.dataSource = self
@@ -175,13 +175,14 @@ extension PopularMoviesViewController: UICollectionViewDelegate, UICollectionVie
 // MARK: - ScrollViewDelegate
 extension PopularMoviesViewController{
     
-    // Load more items when the collectionView's scrolls reach
+    // Load more items when the collectionView's scrolls reach the bottom
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == collectionView && presenter.numberOfItems != 0{
+            
             navigationItem.searchController?.searchBar.endEditing(true)
             let contentOffset = scrollView .contentOffset.y
             let maximumOffset = (scrollView.contentSize.height - scrollView.frame.size.height)
-            
+   
             // Checks if it is the end of the scroll
             if(contentOffset >= maximumOffset){
                 if(!isLoadingMore){

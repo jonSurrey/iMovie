@@ -85,6 +85,10 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="fLU-ld-Bt6">
+                                <rect key="frame" x="197" y="377" width="20" height="20"/>
+                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" name="primaryColor"/>
                         <constraints>
@@ -99,12 +103,14 @@
                             <constraint firstItem="NPQ-6K-yI9" firstAttribute="leading" secondItem="7bT-r6-K0o" secondAttribute="leading" id="JNX-qd-xjL"/>
                             <constraint firstItem="7bT-r6-K0o" firstAttribute="trailing" secondItem="NPQ-6K-yI9" secondAttribute="trailing" id="KGR-jt-3TI"/>
                             <constraint firstItem="7bT-r6-K0o" firstAttribute="trailing" secondItem="myX-Vr-lDr" secondAttribute="trailing" constant="18" id="LhQ-mF-xHY"/>
+                            <constraint firstItem="fLU-ld-Bt6" firstAttribute="centerY" secondItem="7bT-r6-K0o" secondAttribute="centerY" id="QzF-JK-6xM"/>
                             <constraint firstItem="ren-CU-4rc" firstAttribute="leading" secondItem="QCF-99-Nnc" secondAttribute="leading" id="Xza-ej-LhT"/>
                             <constraint firstItem="QCF-99-Nnc" firstAttribute="leading" secondItem="ojz-78-q2w" secondAttribute="leading" id="Zna-Vd-O6L"/>
                             <constraint firstItem="ojz-78-q2w" firstAttribute="trailing" secondItem="myX-Vr-lDr" secondAttribute="trailing" id="a8i-QG-VqY"/>
                             <constraint firstItem="cHL-oe-swo" firstAttribute="trailing" secondItem="NPQ-6K-yI9" secondAttribute="trailing" id="hAC-XE-AQX"/>
                             <constraint firstItem="ren-CU-4rc" firstAttribute="trailing" secondItem="QCF-99-Nnc" secondAttribute="trailing" id="n9V-Ob-4mg"/>
                             <constraint firstItem="ojz-78-q2w" firstAttribute="top" secondItem="myX-Vr-lDr" secondAttribute="bottom" id="tEH-bS-6kI"/>
+                            <constraint firstItem="fLU-ld-Bt6" firstAttribute="centerX" secondItem="7bT-r6-K0o" secondAttribute="centerX" id="teZ-7d-HJn"/>
                             <constraint firstItem="ren-CU-4rc" firstAttribute="top" secondItem="QCF-99-Nnc" secondAttribute="bottom" constant="5" id="w1i-MW-y8R"/>
                             <constraint firstItem="ojz-78-q2w" firstAttribute="leading" secondItem="myX-Vr-lDr" secondAttribute="leading" id="xrQ-rB-iRw"/>
                             <constraint firstItem="cHL-oe-swo" firstAttribute="top" secondItem="NPQ-6K-yI9" secondAttribute="top" id="zcU-5D-9ls"/>
@@ -113,6 +119,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="hsb-yh-qN4"/>
                     <connections>
+                        <outlet property="loading" destination="fLU-ld-Bt6" id="TPE-FI-GaR"/>
                         <outlet property="movieGenre" destination="ojz-78-q2w" id="MkZ-QN-Qxh"/>
                         <outlet property="movieOverview" destination="ren-CU-4rc" id="FDx-RN-5MM"/>
                         <outlet property="moviePoster" destination="NPQ-6K-yI9" id="M68-OD-zlz"/>
@@ -191,17 +198,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Z02-ti-3x4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="Mo6-8w-XXc">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Mo6-8w-XXc" id="0Te-W1-rNl">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <connections>
                             <outlet property="dataSource" destination="DVJ-7m-idx" id="gGv-7n-hav"/>
                             <outlet property="delegate" destination="DVJ-7m-idx" id="4Nj-fu-3ld"/>
@@ -223,17 +220,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="zxY-gk-lwi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="Xhh-pS-YTk">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xhh-pS-YTk" id="nrK-De-T9Z">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <connections>
                             <outlet property="dataSource" destination="fbH-ZA-gRu" id="qLi-Dw-Kxz"/>
                             <outlet property="delegate" destination="fbH-ZA-gRu" id="Ga6-Vd-egI"/>
@@ -351,6 +338,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="Ltw-Wp-Z7d">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
