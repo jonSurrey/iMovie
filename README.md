@@ -33,10 +33,3 @@ The performed requests handle successful results, failure results and no interne
 
 ### Tests
 The app was built using MVP architecture and (DIP)Dependency Injection Pattern to make it easier for Unit-Testing
-
-<p align="center">
-  <img width="300" height="300" src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/f8260d73696603.5c11c2e843f0b.png">
-  <img width="300" height="300" src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/27f35773696603.5c11c2e842ef7.png">
-  <img width="300" height="300" src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/05b7d773696603.5c11c2e843910.png">
-  <img width="300" height="300" src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/9e237a73696603.5c11c2e843627.png">
-</p>
