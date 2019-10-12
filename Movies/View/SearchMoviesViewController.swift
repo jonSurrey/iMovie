@@ -62,6 +62,11 @@ class SearchMoviesViewController: UIViewController {
         setupViews()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateMoviesList()
+    }
+    
     // MARK: - Setup
     /// Sets up the collectionView
     private func setupViews(){
@@ -145,10 +150,14 @@ extension SearchMoviesViewController:UISearchResultsUpdating{
     
     /// Triggers the timer to execute the filtering
     private func triggerRequestForText(_ term:String?){
+        guard let text = term, !text.isEmpty else{
+            return
+        }
+        
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { [weak self] _ in
-            print("Filtering movie with name: \(term ?? "")...")
-            self?.presenter.searchTerm  = term
+            print("Filtering movie with name: \(text)...")
+            self?.presenter.searchTerm = text
             self?.presenter.getMovies()
         }
     }
@@ -159,8 +168,9 @@ extension SearchMoviesViewController{
     
     // Load more items when the collectionView's scrolls reach
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        navigationItem.searchController?.searchBar.endEditing(true)
-        if scrollView == collectionView && !presenter.isSearching{
+        
+        if scrollView == collectionView && presenter.numberOfItems != 0{
+            navigationItem.searchController?.searchBar.endEditing(true)
             
             let contentOffset = scrollView .contentOffset.y
             let maximumOffset = (scrollView.contentSize.height - scrollView.frame.size.height)
@@ -184,11 +194,11 @@ extension SearchMoviesViewController:SearchMoviesViewDelegate{
     func updateMoviesList() {
         isLoadingMore = false
         collectionView.reloadData()
-        collectionView.hideEmptyMessage()
     }
     
     func showLoading() {
         refreshControl.beginRefreshing()
+        collectionView.hideEmptyMessage()
     }
     
     func hideLoading() {

@@ -57,17 +57,7 @@ class SearchMoviesPresenter{
         currentPage = page
         isSearching = true
         view.showLoading()
-        service.search(searchTerm)
-    }
-    
-    //// Check the state of the list of the movies and return a specific feedback message
-    private func checkMoviesSourceState(){
-        if movies.isEmpty{
-            view.showFeedback(message: "Ops... Something went wrong. Please, try again.")
-        }
-        else if movies.isEmpty{
-            view.showFeedback(message: "There is no movies with the search term you typed.")
-        }
+        service.search(searchTerm, page)
     }
 }
 
@@ -99,7 +89,7 @@ extension SearchMoviesPresenter:MovieServiceDelegate{
         if currentPage == 1{
             self.movies = movies
             if movies.isEmpty{
-                view.showFeedback(message: "Ops... Something went wrong. Please, try again.")
+                view.showFeedback(message: "There is no movies with the search term you typed.")
             }
         }
         else{
@@ -107,7 +97,6 @@ extension SearchMoviesPresenter:MovieServiceDelegate{
         }
         view.hideLoading()
         view.updateMoviesList()
-        checkMoviesSourceState()
     }
     
     func onRequestError(_ error: String) {

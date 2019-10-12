@@ -66,6 +66,11 @@ class PopularMoviesViewController: UIViewController {
         presenter.getMovies()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateMoviesList()
+    }
+    
     // MARK: - Setup
     /// Sets up the collectionView
     private func setupViews(){
@@ -172,9 +177,8 @@ extension PopularMoviesViewController{
     
     // Load more items when the collectionView's scrolls reach
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        navigationItem.searchController?.searchBar.endEditing(true)
-        if scrollView == collectionView{
-            
+        if scrollView == collectionView && presenter.numberOfItems != 0{
+            navigationItem.searchController?.searchBar.endEditing(true)
             let contentOffset = scrollView .contentOffset.y
             let maximumOffset = (scrollView.contentSize.height - scrollView.frame.size.height)
             
@@ -213,11 +217,11 @@ extension PopularMoviesViewController:PopularMoviesViewDelegate{
     func updateMoviesList() {
         isLoadingMore = false
         collectionView.reloadData()
-        collectionView.hideEmptyMessage()
     }
     
     func showLoading() {
         refreshControl.beginRefreshing()
+        collectionView.hideEmptyMessage()
     }
     
     func hideLoading() {

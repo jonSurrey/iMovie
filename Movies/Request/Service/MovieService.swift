@@ -63,7 +63,7 @@ class MovieService{
     }
     
     /// Requests a list of movies according to the search parameter
-    func search(_ term:String?, page: Int = 1){
+    func search(_ term:String?, _ page: Int = 1){
         var parameters = Parameters()
             parameters["page"]  = page
             parameters["query"] = term
