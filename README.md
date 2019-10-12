@@ -4,7 +4,14 @@ A simple SWIFT app using the MVP pattern to discover and search any popular movi
 </p>
 
 ### API
-This app makes use of the API from Movie DB to fetch the results. for more information refer to: https://www.themoviedb.org/documentation/api.
+This app makes use of the API from Movie DB to fetch the results.
+The endpoints in this project:
+- discover: https://developers.themoviedb.org/3/discover/movie-discover
+- search: https://developers.themoviedb.org/3/search/search-movies
+- details: https://developers.themoviedb.org/3/movies/get-movie-details
+- genres: https://developers.themoviedb.org/3/genres/get-movie-list
+
+for more information refer to: https://developers.themoviedb.org/3/getting-started/introduction
 
 ### Layout
 The app interface was builded using StoryBoard with a few custom views using View Code. 
