@@ -2,15 +2,13 @@
 //  FavoriteCell.swift
 //  Movies
 //
-//  Created by Jonathan Martins on 19/09/18.
-//  Copyright © 2018 Jonathan Martins. All rights reserved.
+//  Created by Jonathan Martins on 11/10/19.
+//  Copyright © 2019 Jonathan Martins. All rights reserved.
 //
 
 import UIKit
 
 class FavoriteCell: UITableViewCell {
-    
-    static let identifier = "FavoriteCell"
     
     // The cell's wrapper
     private let wrapper: UIView = {
@@ -52,15 +50,30 @@ class FavoriteCell: UITableViewCell {
         return label
     }()
     
-    /// Adds the constraints to the views in this cell
-    private func setupConstraints(){
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        addViews()
+        setupConstraints()
         
+        selectionStyle = .none
+        contentView.backgroundColor = .appColor(.secondaryColor)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    /// Adds the views to the main one
+    private func addViews(){
         self.wrapper.addSubview(poster)
         self.wrapper.addSubview(movieName)
         self.wrapper.addSubview(movieDate)
         self.contentView.addSubview(wrapper)
+    }
+    
+    /// Adds the constraints to the views in this cell
+    private func setupConstraints(){
         NSLayoutConstraint.activate([
-            
             wrapper.heightAnchor .constraint(equalToConstant: 100),
             wrapper.topAnchor    .constraint(equalTo: self.contentView.topAnchor, constant: 5),
             wrapper.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
@@ -81,17 +94,6 @@ class FavoriteCell: UITableViewCell {
             movieDate.leadingAnchor .constraint(equalTo: movieName.leadingAnchor),
             movieDate.trailingAnchor.constraint(equalTo: movieName.trailingAnchor)
         ])
-    }
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupConstraints()
-        contentView.backgroundColor = .appSecondColor
-        selectionStyle = .none
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     /// Configures the Cell

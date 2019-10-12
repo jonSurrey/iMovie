@@ -2,27 +2,23 @@
 //  UIColor+Utils.swift
 //  Movies
 //
-//  Created by Jonathan Martins on 18/09/18.
-//  Copyright © 2018 Jonathan Martins. All rights reserved.
+//  Created by Jonathan Martins on 09/10/19.
+//  Copyright © 2019 Jonathan Martins. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
+enum AssetsColor:String{
+    case primaryColor
+    case secondaryColor
+}
+
 extension UIColor {
     
-    /// Apps's default colour
-    open class var appColor: UIColor {
-        get{
-            return UIColor.init(hexString: "#000a12")
-        }
-    }
-    
-    /// Apps's second colour
-    open class var appSecondColor: UIColor {
-        get{
-            return UIColor.init(hexString: "#C0C0C0")
-        }
+    /// Returns a given AssetsColor
+    static func appColor(_ name: AssetsColor) -> UIColor? {
+        return UIColor(named: name.rawValue)
     }
     
     /// Takes an Hexadecimal String value and converts to UIColor

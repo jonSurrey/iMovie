@@ -1,9 +1,9 @@
 //
 //  String+Util.swift
-//  Pedida de hoje
+//  Movies
 //
-//  Created by Jonathan Martins on 01/06/18.
-//  Copyright © 2016 Jussi. All rights reserved.
+//  Created by Jonathan Martins on 09/10/19.
+//  Copyright © 2019 Jonathan Martins. All rights reserved.
 //
 
 import Foundation

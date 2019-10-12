@@ -2,16 +2,16 @@
 //  Result.swift
 //  Movies
 //
-//  Created by Jonathan Martins on 18/09/18.
-//  Copyright © 2018 Jonathan Martins. All rights reserved.
+//  Created by Jonathan Martins on 10/10/19.
+//  Copyright © 2019 Jonathan Martins. All rights reserved.
 //
 
 import Foundation
 
-struct Result:Decodable{
+struct Result:Codable{
     
-    var movies:[Movie]?
-    var genres:[Genre]?
+    let movies:[Movie]?
+    let genres:[Genre]?
     
     private enum CodingKeys: String, CodingKey {
         case movies = "results"

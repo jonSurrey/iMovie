@@ -2,14 +2,14 @@
 //  UIImageView+Utils.swift
 //  Movies
 //
-//  Created by Jonathan Martins on 18/09/18.
-//  Copyright © 2018 Jonathan Martins. All rights reserved.
+//  Created by Jonathan Martins on 09/10/19.
+//  Copyright © 2019 Jonathan Martins. All rights reserved.``````````
 //
 
-import Alamofire
-import AlamofireImage
-import Foundation
 import UIKit
+import Alamofire
+import Foundation
+import AlamofireImage
 
 extension UIImageView {
     

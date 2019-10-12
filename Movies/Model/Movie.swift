@@ -2,30 +2,21 @@
 //  Movie.swift
 //  Movies
 //
-//  Created by Jonathan Martins on 18/09/18.
-//  Copyright © 2018 Jonathan Martins. All rights reserved.
+//  Created by Jonathan Martins on 10/09/19.
+//  Copyright © 2019 Jonathan Martins. All rights reserved.
 //
 
 import Foundation
-
-struct Genre:Codable{
-    
-    var id:Int?
-    var name:String?
-
-    private enum CodingKeys: String, CodingKey {
-        case id    = "id"
-        case name  = "name"
-    }
-}
+import CoreData
 
 struct Movie:Codable{
 
-    var id:Int?
-    var title:String?
-    var genres:[Genre]?
-    var overview:String?
-    var releaseDate:String?
+    let id:Int?
+    let url:String?
+    let title:String?
+    let genres:[Genre]?
+    let overview:String?
+    let releaseDate:String?
     var poster: String? {
         get{
             if let url = url{
@@ -35,7 +26,6 @@ struct Movie:Codable{
         }
     }
     
-    private var url:String?
     private enum CodingKeys: String, CodingKey {
         case id          = "id"
         case title       = "original_title"
@@ -45,26 +35,21 @@ struct Movie:Codable{
         case releaseDate = "release_date"
     }
     
-    init(withId id:Int?=nil) {
-        self.id = id
+    init(id:Int, url:String, title:String, genres:[Genre], overview:String, releaseDate:String){
+        self.id          = id
+        self.url         = url
+        self.title       = title
+        self.genres      = genres
+        self.overview    = overview
+        self.releaseDate = releaseDate
     }
     
-    /// Converts the favorite list (Json String) to Array object
-    static func convertJsonStringToFavoriteList(_ json:String?)->[Movie]{
-        if let json = json, let data = json.data(using: .utf8, allowLossyConversion: false){
-            if let list = try? JSONDecoder().decode([Movie].self, from: data){
-                return list
-            }
-        }
-        return []
-    }
-    
-    /// Converts the favorite list (Object) to a Json String
-    static func convertFavoriteListToJsonString(_ favorites:[Movie])->String?{
-        guard let jsonData = try? JSONEncoder().encode(favorites) else{
-            return nil
-        }
-        
-        return String(data: jsonData, encoding: String.Encoding.utf8)
+    init(_ object:NSManagedObject){
+        id          = object.value(forKey: "id")          as? Int
+        url         = object.value(forKey: "url")         as? String
+        title       = object.value(forKey: "title")       as? String
+        genres      = object.value(forKey: "genres")      as? [Genre]
+        overview    = object.value(forKey: "overview")    as? String
+        releaseDate = object.value(forKey: "releaseDate") as? String
     }
 }

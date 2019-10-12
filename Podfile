@@ -4,8 +4,8 @@
 target 'Movies' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
+  inhibit_all_warnings!
 
-  pod 'JonAlert', :git => 'https://github.com/jonSurrey/JonAlert.git', :branch => 'master'
   pod 'Alamofire',      '~> 4.7'
   pod 'AlamofireImage', '~> 3.3'
 

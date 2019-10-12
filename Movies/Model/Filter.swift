@@ -2,29 +2,23 @@
 //  Filter.swift
 //  Movies
 //
-//  Created by Jonathan Martins on 20/09/18.
-//  Copyright © 2018 Jonathan Martins. All rights reserved.
+//  Created by Jonathan Martins on 10/10/19.
+//  Copyright © 2019 Jonathan Martins. All rights reserved.
 //
 
 import Foundation
 
 class Filter {
 
-    static let current = Filter()
-    
-    /// Indicates if there are active filters
-    var hasFilters:Bool = false
-    
-    /// Indicates the genre of a movie
+    /// Indicates the genre of the movie
     var genre:Genre?
     
-    /// Indicates the date of a movie
+    /// Indicates the date of the movie
     var date:String?
 
-    /// Resets all fikters
+    /// Resets all filters
     func resetAll(){
         date  = nil
         genre = nil
-        hasFilters = false
     }
 }

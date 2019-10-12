@@ -2,8 +2,8 @@
 //  FilterCell.swift
 //  Movies
 //
-//  Created by Jonathan Martins on 20/09/18.
-//  Copyright © 2018 Jonathan Martins. All rights reserved.
+//  Created by Jonathan Martins on 11/10/19.
+//  Copyright © 2019 Jonathan Martins. All rights reserved.
 //
 
 import UIKit
@@ -11,10 +11,8 @@ import UIKit
 /// The cell for the filter's items
 class FilterCell:UITableViewCell {
     
-    static let identifier = "FilterCell"
-    
     // The filter's title
-    let title: UILabel = {
+    private let title: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.textColor = .darkGray
@@ -25,7 +23,7 @@ class FilterCell:UITableViewCell {
     }()
     
     // The filter's option
-    let option: UILabel = {
+    private let option: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.textColor = .lightGray
@@ -34,6 +32,19 @@ class FilterCell:UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupConstraints()
+        
+        accessoryType  = .disclosureIndicator
+        selectionStyle = .none
+    }
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     /// Adds the constraints to the views in this cell
     private func setupConstraints(){
@@ -47,26 +58,15 @@ class FilterCell:UITableViewCell {
         ])
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupConstraints()
-        accessoryType  = .disclosureIndicator
-        selectionStyle = .none
-    }
-    
     /// Configures the cell
-    func setupCell(item:(name: String, type: FilterOption)){
+    func setupCell(item:(name: String, type: FilterOption), _ filter:Filter){
         title.text = item.name
         switch item.type {
             case .date:
-                option.text = Filter.current.date
+                option.text = filter.date
             case .genre:
-                option.text = Filter.current.genre?.name
+                option.text = filter.genre?.name
         }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -76,7 +76,7 @@ class FilterFooterCell: UIView{
     // The "apply" button
     let buttonApply: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .appColor
+        button.backgroundColor = .appColor(.primaryColor)
         button.cornerRadius = 23
         button.setTitle("Apply", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)

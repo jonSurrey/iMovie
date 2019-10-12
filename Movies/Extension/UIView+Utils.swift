@@ -2,8 +2,8 @@
 //  UIView+Utils.swift
 //  Movies
 //
-//  Created by Jonathan Martins on 19/09/18.
-//  Copyright © 2018 Jonathan Martins. All rights reserved.
+//  Created by Jonathan Martins on 09/10/19.
+//  Copyright © 2019 Jonathan Martins. All rights reserved.
 //
 import UIKit
 import Foundation
