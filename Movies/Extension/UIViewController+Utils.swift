@@ -58,7 +58,7 @@ extension UIViewController{
         
         // Customize the searchbar to be white
         if let textfield = searchController.searchBar.value(forKey: "searchField") as? UITextField {
-            
+            textfield.textColor = .white
             if let backgroundview = textfield.subviews.first {
                 
                 // Background color

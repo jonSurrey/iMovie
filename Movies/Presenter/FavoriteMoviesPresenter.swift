@@ -15,7 +15,7 @@ protocol FavoriteMoviesPresenterDelegate:class{
     var numberOfItems:Int{ get }
 
     /// Binds the view to this presenter
-    func bind(to view:FavoriteMoviesViewDelegate, storage:LocalStorageManager)
+    func bind(to view:FavoriteMoviesViewDelegate, storage:LocalStorageManagerDelegate)
 
     /// Removes a given movie from the favorute list
     func unfavorite(_ movie:Movie)
@@ -54,7 +54,7 @@ class FavoriteMoviesPresenter{
     private weak var view:FavoriteMoviesViewDelegate!
     
     /// Manager for the local storage
-    private var storage:LocalStorageManager!
+    private var storage:LocalStorageManagerDelegate!
     
     /// Check the state of the list of the movies and return a specific feedback message
     private func checkFavoriteMoviesDataSourceState(){
@@ -74,7 +74,7 @@ extension FavoriteMoviesPresenter:FavoriteMoviesPresenterDelegate{
         return movies.count
     }
     
-    func bind(to view: FavoriteMoviesViewDelegate, storage:LocalStorageManager) {
+    func bind(to view: FavoriteMoviesViewDelegate, storage:LocalStorageManagerDelegate) {
         self.view    = view
         self.storage = storage
     }

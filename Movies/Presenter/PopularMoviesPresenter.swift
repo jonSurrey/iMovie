@@ -15,7 +15,7 @@ protocol PopularMoviesPresenterDelegate:class{
     var numberOfItems:Int{ get }
 
     /// Binds the view to this presenter
-    func bind(to view:PopularMoviesViewDelegate, service:MovieService, storage:LocalStorageManager)
+    func bind(to view:PopularMoviesViewDelegate, service:MovieService, storage:LocalStorageManagerDelegate)
     
     /// Selects a movie from the datasource
     func itemFor(index:Int)->Movie
@@ -51,7 +51,7 @@ class PopularMoviesPresenter{
     }
     
     /// Manager for the local storage
-    private var storage:LocalStorageManager!
+    private var storage:LocalStorageManagerDelegate!
     
     /// Callback responsible for updating the view
     private weak var view:PopularMoviesViewDelegate!
@@ -82,7 +82,7 @@ extension PopularMoviesPresenter:PopularMoviesPresenterDelegate{
         selectedMovie = movies[index]
     }
     
-    func bind(to view: PopularMoviesViewDelegate, service: MovieService, storage:LocalStorageManager) {
+    func bind(to view: PopularMoviesViewDelegate, service: MovieService, storage:LocalStorageManagerDelegate) {
         self.view    = view
         self.service = service
         self.storage = storage

@@ -36,7 +36,7 @@ class FavoriteMoviesViewController:UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.bind(to: self, storage: LocalStorageManager())
-        setSearchController(title: "Favorite Movies", delegate:self)
+        setSearchController(title: "Favorites", delegate:self)
         configureViews()
     }
     

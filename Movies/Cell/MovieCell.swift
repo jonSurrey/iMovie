@@ -108,6 +108,7 @@ class MovieCell: UICollectionViewCell{
         movieDate.text = movie.releaseDate.formatDate(fromPattern: "yyyy-mm-dd", toPattern: "d MMMM yyyy")
         
         /// Sets the icon of the cell
+        poster.image = nil
         if let url = movie.poster{
             poster.load(url)
         }

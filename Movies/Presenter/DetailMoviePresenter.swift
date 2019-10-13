@@ -12,7 +12,7 @@ import Foundation
 protocol DetailMoviePresenterDelegate {
     
     /// Binds a view to the presentes
-    func bind(to view:DetailMovieViewDelegate, _ movie:Movie, service:MovieService, storage:LocalStorageManager)
+    func bind(to view:DetailMovieViewDelegate, _ movie:Movie, service:MovieService, storage:LocalStorageManagerDelegate)
     
     /// Requests the details of the currnet movie
     func getMovieDetails()
@@ -41,7 +41,7 @@ class DetailMoviePresenter{
     }
     
     /// Manager for the local storage
-    private var storage:LocalStorageManager!
+    private var storage:LocalStorageManagerDelegate!
     
     /// Formats the array of genres into a plain String
     private func formatGenres(of movie:Movie)->String{
@@ -82,7 +82,7 @@ extension DetailMoviePresenter:DetailMoviePresenterDelegate{
         service.detail(of: movie)
     }
     
-    func bind(to view: DetailMovieViewDelegate, _ movie:Movie, service:MovieService, storage:LocalStorageManager) {
+    func bind(to view: DetailMovieViewDelegate, _ movie:Movie, service:MovieService, storage:LocalStorageManagerDelegate) {
         self.view    = view
         self.movie   = movie
         self.service = service

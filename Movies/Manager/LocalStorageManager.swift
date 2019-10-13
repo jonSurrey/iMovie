@@ -17,7 +17,7 @@ protocol LocalStorageManagerDelegate {
     func loadCache()->[Movie]
     
     /// Saves a given list of movies in the CoreData
-    func cache(_ people:[Movie])
+    func cache(_ movies:[Movie])
     
     /// Removes all cache  from CoreData
     func clearCache()
