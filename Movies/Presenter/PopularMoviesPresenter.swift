@@ -11,26 +11,31 @@ import Foundation
 // MARK: - PopularMoviesPresenterDelegate
 protocol PopularMoviesPresenterDelegate:class{
     
-    /// The number of items in the datasource
-    var numberOfItems:Int{ get }
+    /// The list of movies
+    var movies:[Movie] { get set}
 
     /// Binds the view to this presenter
     func bind(to view:PopularMoviesViewDelegate, service:MovieService, storage:LocalStorageManagerDelegate)
     
-    /// Selects a movie from the datasource
-    func itemFor(index:Int)->Movie
-    
-    /// Sets selected a movie in the datasource
-    func selectMovie(at index:Int)
+    /// Perfomrs the request to the movies list
+    func getMovies(page:Int)
     
     /// Removes the selects filters
     func clearFilters()
+}
+
+// MARK: - PopularMoviesPresenterDelegate Default Implementation
+extension PopularMoviesPresenterDelegate{
+
+    func getMovies(page:Int = 1){}
 }
 
 // MARK: - PopularMoviesPresenter
 class PopularMoviesPresenter{
     
     // MARK: - Variables
+    var movies:[Movie] = []
+    
     /// Indicates the current page of the list of movies
     var currentPage:Int = 1
     
@@ -40,8 +45,10 @@ class PopularMoviesPresenter{
     /// The possible filter of the request
     var filter = Filter()
     
-    /// The list of movies
-    private var movies:[Movie] = []
+    /// The number of items in the datasource
+    var numberOfItems:Int{
+        return movies.count
+    }
     
     /// The service responsible for the requests
     private var service:MovieService!{
@@ -56,19 +63,19 @@ class PopularMoviesPresenter{
     /// Callback responsible for updating the view
     private weak var view:PopularMoviesViewDelegate!
     
-    /// Perfomrs the request to the movies list
-    func getMovies(page:Int = 1){
-        currentPage = page
-        view.showLoading()
-        service.popular(page: page, filter)
+    /// Sets selected a movie in the datasource
+    func selectMovie(at index: Int) {
+        selectedMovie = movies[index]
     }
 }
 
 // MARK: - PopularMoviesPresenterDelegate
 extension PopularMoviesPresenter:PopularMoviesPresenterDelegate{
     
-    var numberOfItems:Int{
-        return movies.count
+    func getMovies(page:Int = 1){
+        currentPage = page
+        view.showLoading()
+        service.popular(page: page, filter)
     }
     
     func clearFilters() {
@@ -77,19 +84,11 @@ extension PopularMoviesPresenter:PopularMoviesPresenterDelegate{
         
         getMovies()
     }
-    
-    func selectMovie(at index: Int) {
-        selectedMovie = movies[index]
-    }
-    
+
     func bind(to view: PopularMoviesViewDelegate, service: MovieService, storage:LocalStorageManagerDelegate) {
         self.view    = view
         self.service = service
         self.storage = storage
-    }
-    
-    func itemFor(index:Int)->Movie{
-        return movies[index]
     }
 }
 

@@ -146,7 +146,7 @@ extension PopularMoviesViewController: UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.getCell(from: MovieCell.self, at: indexPath)
-        let movie      = presenter.itemFor(index: indexPath.row)
+        let movie      = presenter.movies[indexPath.row]
         let isFavorite = storage.isMovieFavorite(movie)
         
         cell.setupCell(movie: movie, isFavorite: isFavorite)

@@ -11,17 +11,17 @@ import Foundation
 // MARK: - SearchMoviesPresenterDelegate
 protocol SearchMoviesPresenterDelegate:class{
     
-    /// The number of items in the datasource
-    var numberOfItems:Int{ get }
+    /// The list of movies
+    var movies:[Movie] { get set }
 
     /// Binds the view to this presenter
     func bind(to view:SearchMoviesViewDelegate, service:MovieService)
-    
-    /// Selects a movie from the datasource
-    func itemFor(index:Int)->Movie
-    
-    /// Sets selected a movie in the datasource
-    func selectMovie(at index:Int)
+}
+
+// MARK: - PopularMoviesPresenterDelegate Default Implementation
+extension SearchMoviesPresenterDelegate{
+
+    func getMovies(page:Int = 1){ }
 }
 
 // MARK: - SearchMoviesPresenter
@@ -39,8 +39,13 @@ class SearchMoviesPresenter{
     /// The movie selected by the user
     var selectedMovie:Movie?
     
+    /// The number of items in the datasource
+    var numberOfItems:Int{
+        return movies.count
+    }
+    
     /// The list of movies
-    private var movies:[Movie] = []
+    internal var movies:[Movie] = []
     
     /// The service responsible for the requests
     private var service:MovieService!{
@@ -52,33 +57,26 @@ class SearchMoviesPresenter{
     /// Callback to update the view
     private weak var view:SearchMoviesViewDelegate!
     
-    /// Requests to search a movie by the given term
-    func getMovies(page:Int = 1){
-        currentPage = page
-        isSearching = true
-        view.showLoading()
-        service.search(searchTerm, page)
+    /// Sets selected a movie in the datasource
+    func selectMovie(at index: Int) {
+        selectedMovie = movies[index]
     }
 }
 
 // MARK: - SearchMoviesPresenterDelegate
 extension SearchMoviesPresenter:SearchMoviesPresenterDelegate{
     
-    var numberOfItems:Int{
-        return movies.count
-    }
-    
-    func selectMovie(at index: Int) {
-        selectedMovie = movies[index]
-    }
-    
     func bind(to view: SearchMoviesViewDelegate, service: MovieService) {
         self.view    = view
         self.service = service
     }
     
-    func itemFor(index:Int)->Movie{
-        return movies[index]
+    /// Requests to search a movie by the given term
+    func getMovies(page:Int = 1){
+        currentPage = page
+        isSearching = true
+        view.showLoading()
+        service.search(searchTerm, page)
     }
 }
 

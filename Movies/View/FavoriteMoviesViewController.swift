@@ -59,7 +59,7 @@ class FavoriteMoviesViewController:UIViewController {
 extension FavoriteMoviesViewController: UITableViewDelegate, UITableViewDataSource  {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let movie = presenter.itemFor(index: indexPath.row)
+        let movie         = presenter.movies[indexPath.row]
         let unfavoriteAct = UIContextualAction(style: .destructive, title: "Unfavorite", handler: { [weak self] (action, view, handler) in
             self?.presenter.unfavorite(movie)
             self?.presenter.loadFavoriteList()
@@ -73,7 +73,7 @@ extension FavoriteMoviesViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.getCell(from: FavoriteCell.self, at: indexPath)
-        let item = presenter.itemFor(index: indexPath.row)
+        let item = presenter.movies[indexPath.row]
         
         cell.setupCell(movie: item)
         return cell

@@ -35,7 +35,7 @@ struct Movie:Codable{
         case releaseDate = "release_date"
     }
     
-    init(id:Int, title:String, genres:[Genre] = []){
+    init(id:Int = 1, title:String = "", genres:[Genre] = []){
         self.id          = id
         self.url         = "www.test.com"
         self.title       = title

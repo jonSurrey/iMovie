@@ -10,10 +10,10 @@ import Foundation
 
 // MARK: - FavoriteMoviesPresenterDelegate
 protocol FavoriteMoviesPresenterDelegate:class{
-    
-    /// The number of items of the datsource
-    var numberOfItems:Int{ get }
 
+    /// The list of movies to be displayed
+    var movies:[Movie] { get set}
+    
     /// Binds the view to this presenter
     func bind(to view:FavoriteMoviesViewDelegate, storage:LocalStorageManagerDelegate)
 
@@ -23,12 +23,6 @@ protocol FavoriteMoviesPresenterDelegate:class{
     /// Filters the the favorite movies by a given term
     func filterMoviesBy(_ term:String)
     
-    /// Sets selected a movie in the datasource
-    func selectMovie(at index: Int)
-    
-    /// Selects a movie from the datasource
-    func itemFor(index:Int)->Movie
-    
     /// Loads the user's favorite list
     func loadFavoriteList()
 }
@@ -37,6 +31,8 @@ protocol FavoriteMoviesPresenterDelegate:class{
 class FavoriteMoviesPresenter{
     
     // MARK: - Variables
+    var movies:[Movie] = []
+    
     /// The list of favorite movies
     private var favorites:[Movie] = []{
         didSet{
@@ -44,11 +40,18 @@ class FavoriteMoviesPresenter{
         }
     }
     
-    /// The list of movies to be edited
-    private var movies:[Movie] = []
+    /// The number of items in the datasource
+    var numberOfItems: Int {
+        return movies.count
+    }
     
     /// The movie selected by the user
     var selectedMovie:Movie?
+    
+    /// Sets selected a movie in the datasource
+    func selectMovie(at index: Int) {
+        selectedMovie = movies[index]
+    }
     
     /// Reference to the ViewController's view
     private weak var view:FavoriteMoviesViewDelegate!
@@ -70,10 +73,6 @@ class FavoriteMoviesPresenter{
 // MARK: - FavoriteMoviesPresenterDelegate
 extension FavoriteMoviesPresenter:FavoriteMoviesPresenterDelegate{
  
-    var numberOfItems: Int {
-        return movies.count
-    }
-    
     func bind(to view: FavoriteMoviesViewDelegate, storage:LocalStorageManagerDelegate) {
         self.view    = view
         self.storage = storage
@@ -83,14 +82,6 @@ extension FavoriteMoviesPresenter:FavoriteMoviesPresenterDelegate{
         favorites = storage.loadFavorites()
         view.updateFavoriteList()
         checkFavoriteMoviesDataSourceState()
-    }
-    
-    func selectMovie(at index: Int) {
-        selectedMovie = movies[index]
-    }
-    
-    func itemFor(index:Int)->Movie{
-        return movies[index]
     }
     
     func filterMoviesBy(_ term: String) {

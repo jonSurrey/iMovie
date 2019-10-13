@@ -25,7 +25,7 @@ class LocalStorageManagerTests: XCTestCase {
         
     }
     
-    func testClearMoviesCache(){
+    func testClearCachedMovies(){
         
     }
     
@@ -37,7 +37,7 @@ class LocalStorageManagerTests: XCTestCase {
         
     }
     
-    func testRemoveMovieFromFavorite(){
+    func testRemoveMovieFromFavorites(){
         
     }
     
@@ -53,7 +53,7 @@ class LocalStorageManagerTests: XCTestCase {
 class LocalStorageMock:LocalStorageManagerDelegate{
     
     private var movies:[Movie]    = []
-    private var favorites:[Movie] = []
+    private var favorites:[Movie] = [Movie(id: 1, title: "Matrix"), Movie(id: 2, title: "Frozen")]
     
     func loadCache()->[Movie]{
         return movies
