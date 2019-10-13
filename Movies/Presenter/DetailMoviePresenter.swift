@@ -61,6 +61,17 @@ class DetailMoviePresenter{
         isFavorite = storage.isMovieFavorite(movie)
         view.updateIsMovieFavorite(isFavorite)
     }
+    
+    /// Updates the view with the movies's infomation
+    private func updateMovieView(_ movie:Movie){
+        checkMovieIsFavorite(movie)
+        
+        view.updateMovieTitle (movie.title)
+        view.updateMoviePoster(movie.poster)
+        view.updateMovieOverview(movie.overview)
+        view.updateMovieGenre(formatGenres(of: movie))
+        view.updateMovieReleaseDate(formatDate(of:movie))
+    }
 }
 
 // MARK: - DetailMoviePresenterDelegate
@@ -94,15 +105,8 @@ extension DetailMoviePresenter:DetailMoviePresenterDelegate{
 extension DetailMoviePresenter:MovieServiceDelegate{
     
     func didReceiveDetailOf(_ movie:Movie){
-        
         view.hideLoading()
-        checkMovieIsFavorite(movie)
-        
-        view.updateMovieTitle (movie.title)
-        view.updateMoviePoster(movie.poster)
-        view.updateMovieOverview(movie.overview)
-        view.updateMovieGenre(formatGenres(of: movie))
-        view.updateMovieReleaseDate(formatDate(of:movie))
+        updateMovieView(movie)
     }
     
     func onRequestError(_ error: String) {
@@ -112,6 +116,7 @@ extension DetailMoviePresenter:MovieServiceDelegate{
     
     func noInternetConection() {
         view.hideLoading()
+        updateMovieView(movie)
         view.showFeedback("It seems you are not connected to the internet")
     }
 }
